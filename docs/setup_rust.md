@@ -1,5 +1,16 @@
 # Setup Rust
 
+## Setup on Linux
+
+- Using apt
+
+  - Open terminal and run the following commands:
+
+  ```bash
+  sudo apt update
+  sudo apt install rustc
+  ```
+
 ## Setup on Windows
 
 - Using WinGet
@@ -31,12 +42,16 @@
 
 - Compile the program using the following command:
 
+  - This will create the compiled program in the same directory as the source file for the operating system you are using to compile it:
+
   ```bash
   rustc <filename>.rs
   ```
 
 - Run the compiled program using the following command:
 
+  - For Windows this will be a `.exe` file, for Linux it will be the same name as the file:
+  
   ```bash
   ./<filename>
   ```
