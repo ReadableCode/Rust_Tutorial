@@ -1,6 +1,6 @@
 use std::io;
 
-fn main() {
+fn introduction() {
     let print_string: &str = "Hello, world!";
     println!("{}", print_string);
     
@@ -33,5 +33,29 @@ fn main() {
     else {
         println!("That is odd")
     }
+}
+
+fn print_hello() {
+    println!("Hello from print_hello");
+}
+
+fn add_numbers(x: i32, y: i32){
+    println!("The sum is {}", x + y);
+}
+
+
+fn main() {
+    println!("Do you want to introduce yourself?");
+    let mut should_introduce_yourself: String = String::new();
+    io::stdin().read_line(&mut should_introduce_yourself).expect("failed to read line");
+    if should_introduce_yourself.trim() == "yes" {
+        introduction();
+    }
+    else {
+        print_hello();
+    }
+    
+    add_numbers(20,20);
+    
     
 }
