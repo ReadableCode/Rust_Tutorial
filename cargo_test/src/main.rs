@@ -21,6 +21,17 @@ fn main() {
     io::stdin().read_line(&mut your_age_string).expect("failed to read age");
     
     let your_age_int: i8 = your_age_string.trim().parse().unwrap();
-    println!("You are going to be {} years old next year", your_age_int + 1)
+    println!("You are going to be {} years old next year", your_age_int + 1);
+    
+    // find out if the age is even or not next year
+    let is_even: bool = (your_age_int % 2) == 0;
+    println!("Your age: {}, is an even number = {}", your_age_int, is_even);
+    
+    if is_even {
+        println!("That is even")
+    }
+    else {
+        println!("That is odd")
+    }
     
 }
