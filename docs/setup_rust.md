@@ -8,7 +8,7 @@
 
   ```bash
   sudo apt update
-  sudo apt install rustc
+  sudo apt install rustc cargo
   ```
 
 ## Setup on Windows
@@ -20,8 +20,12 @@
   ```bash
   winget install -e --id Rustlang.Rustup
   ```
+  
+  - Will need to close and reopen all VSCode windows to make sure the powershell window can access cargo and rustc.
 
-## Testing Installation
+## Testing and Finishing Installation
+
+- If using VSCode, install the Rust extension by searching for `rust-analyzer` in the extensions tab.
 
 - Close and reopen the terminal to make sure installation is successful and hen run the folling commands to verify the versions of rustup and rustc:
   
@@ -30,7 +34,7 @@
   rustc --version
   ```
 
-## Compile and Run a Rust Program
+## Compile and Run a Rust Program with Rustc
 
 - Create a new file with the `.rs` extension and write the following code:
 
@@ -54,4 +58,33 @@
   
   ```bash
   ./<filename>
+  ```
+
+## Compile and Run a Rust Program with Cargo
+
+- Create a new project using the following command:
+
+  - This will create a new directory with the project name and the necessary files for a cargo project:
+
+  ```bash
+  cargo new <project_name>
+  ```
+
+- Navigate to the project directory and run the following command to  build the project:
+
+  ```bash
+  cargo build
+  ```
+
+- Run the project manually using the following command:
+
+  ```bash
+  cd target/debug
+  ./<project_name>
+  ```
+
+- Or run the project using the following command:
+
+  ```bash
+  cargo run
   ```
