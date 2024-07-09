@@ -10,5 +10,4 @@ if __name__ == "__main__":
     result = sum_of_squares(10_000_000)
     end_time = time.time()
     elapsed_time_ms = (end_time - start_time) * 1000
-    print(f"Result: {result}")
-    print(f"Time taken: {elapsed_time_ms:.2f} ms")
+    print(result)

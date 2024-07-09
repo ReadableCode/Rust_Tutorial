@@ -48,14 +48,18 @@ fn add_numbers(x: i32, y: i32) -> i32 {
 
 
 fn main() {
-    println!("Do you want to introduce yourself?");
-    let mut should_introduce_yourself: String = String::new();
-    io::stdin().read_line(&mut should_introduce_yourself).expect("failed to read line");
-    if should_introduce_yourself.trim() == "yes" {
-        introduction();
-        print_hello();
-        let result = add_numbers(20,20);
-        println!("result is {}", result);
+    let do_introductions = false;
+    
+    if do_introductions{
+        println!("Do you want to introduce yourself?");
+        let mut should_introduce_yourself: String = String::new();
+        io::stdin().read_line(&mut should_introduce_yourself).expect("failed to read line");
+        if should_introduce_yourself.trim() == "yes" {
+            introduction();
+            print_hello();
+            let result = add_numbers(20,20);
+            println!("result is {}", result);
+        }
     }
 
     sum_squares_perf_test::compare_performance();
