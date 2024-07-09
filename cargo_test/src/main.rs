@@ -39,8 +39,9 @@ fn print_hello() {
     println!("Hello from print_hello");
 }
 
-fn add_numbers(x: i32, y: i32){
+fn add_numbers(x: i32, y: i32) -> i32 {
     println!("The sum is {}", x + y);
+    return x + y
 }
 
 
@@ -55,7 +56,7 @@ fn main() {
         print_hello();
     }
     
-    add_numbers(20,20);
-    
+    let result = add_numbers(20,20);
+    println!("result is {}", result);
     
 }
