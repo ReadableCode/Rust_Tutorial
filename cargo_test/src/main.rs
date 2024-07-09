@@ -1,5 +1,7 @@
 use std::io;
 
+mod sum_squares_perf_test;
+
 fn introduction() {
     let print_string: &str = "Hello, world!";
     println!("{}", print_string);
@@ -51,12 +53,10 @@ fn main() {
     io::stdin().read_line(&mut should_introduce_yourself).expect("failed to read line");
     if should_introduce_yourself.trim() == "yes" {
         introduction();
-    }
-    else {
         print_hello();
+        let result = add_numbers(20,20);
+        println!("result is {}", result);
     }
-    
-    let result = add_numbers(20,20);
-    println!("result is {}", result);
-    
+
+    sum_squares_perf_test::compare_performance();
 }
