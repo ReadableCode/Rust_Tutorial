@@ -88,3 +88,17 @@
   ```bash
   cargo run
   ```
+
+## Checking and Formatting
+
+- Run the following command to check without compiling:
+
+  ```bash
+  cargo check
+  ```
+
+- Run the following command to format the code:
+
+  ```bash
+  cargo fmt
+  ```
