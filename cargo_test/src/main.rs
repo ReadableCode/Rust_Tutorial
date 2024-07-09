@@ -15,4 +15,12 @@ fn main() {
     io::stdin().read_line(&mut your_name).expect("failed to read line");
     
     println!("Nice to meet you, {}", your_name);
+    println!("How old are you?");
+    
+    let mut your_age_string: String = String::new();
+    io::stdin().read_line(&mut your_age_string).expect("failed to read age");
+    
+    let your_age_int: i8 = your_age_string.trim().parse().unwrap();
+    println!("You are going to be {} years old next year", your_age_int + 1)
+    
 }
