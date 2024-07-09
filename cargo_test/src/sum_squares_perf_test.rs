@@ -11,12 +11,6 @@ pub fn compare_performance() {
     let rust_result = sum_of_squares(10_000_000);
     let rust_duration = start_time.elapsed();
     let rust_elapsed_time_ms = rust_duration.as_secs_f64() * 1000.0;
-    
-    // Print Rust output
-    println!("");
-    println!("Rust Result: {}", rust_result);
-    println!("Rust Time taken: {:.2} ms", rust_elapsed_time_ms);
-    println!("");
 
     // Measure Python execution time
     let start_time = Instant::now();
@@ -27,14 +21,19 @@ pub fn compare_performance() {
 
     let python_duration = start_time.elapsed();
     let python_elapsed_time_ms = python_duration.as_secs_f64() * 1000.0;
-
-    // Print Python script output
-    if output.status.success() {
-        let python_result = String::from_utf8_lossy(&output.stdout);
-        println!("Python Result: {}", python_result.trim());
+    let python_result = if output.status.success() {
+        String::from_utf8_lossy(&output.stdout).to_string()
     } else {
         eprintln!("Python script failed: {:?}", output);
-    }
+        String::new()
+    };
+
+    // Print output
+    println!("");
+    println!("Rust Result: {}", rust_result);
+    println!("Rust Time taken: {:.2} ms", rust_elapsed_time_ms);
+    println!("");
+    println!("Python Result: {}", python_result.trim());
     println!("Python Time taken: {:.2} ms", python_elapsed_time_ms);
     println!("");
 }
