@@ -1,37 +1,11 @@
-use std::fs::{create_dir_all, OpenOptions};
-use std::io::{BufRead, Write};
 use std::process::Command;
-use std::time::{Instant, SystemTime, UNIX_EPOCH};
-
-use crate::constants;
+use std::time::Instant;
 
 fn sum_of_squares(n: u64) -> u128 {
     (1..=n).map(|i| (i as u128) * (i as u128)).sum()
 }
 
-fn write_to_file(content: &str) {
-    // Get the data directory from constants
-    let dir_path = constants::data_dir();
-    println!("Data directory: {:?}", dir_path);
-
-    // Construct the file path
-    let file_path = dir_path.join("results.txt");
-    println!("File path: {:?}", file_path);
-
-    // Ensure the directory exists
-    create_dir_all(&dir_path).expect("Failed to create data directory");
-
-    let mut file = OpenOptions::new()
-        .create(true)
-        .append(true)
-        .open(file_path)
-        .expect("Failed to open results file");
-
-    file.write_all(content.as_bytes())
-        .expect("Failed to write to results file");
-}
-
-pub fn compare_performance() {
+pub fn compare_rust_python_performance() -> (f64, f64) {
     // Measure Rust execution time
     let start_time = Instant::now();
     let rust_result = sum_of_squares(10_000_000);
@@ -63,54 +37,20 @@ pub fn compare_performance() {
     println!("Python Time taken: {:.2} ms", python_elapsed_time_ms);
     println!("");
 
-    // Write results to file with a timestamp
-    let timestamp = SystemTime::now()
-        .duration_since(UNIX_EPOCH)
-        .expect("Time went backwards")
-        .as_secs();
-    let result_entry = format!(
-        "{}, Rust: {:.2} ms, Python: {:.2} ms\n",
-        timestamp, rust_elapsed_time_ms, python_elapsed_time_ms
-    );
-    write_to_file(&result_entry);
+    return (rust_elapsed_time_ms, python_elapsed_time_ms);
 }
 
-pub fn display_graph() {
-    // Get the data directory from constants
-    let dir_path = constants::data_dir();
-    println!("Data directory: {:?}", dir_path);
+pub fn display_graph(rust_time: f64, python_time: f64) {
+    println!("Rust (ms)   Python (ms)");
+    println!("-----------------------");
 
-    // Construct the file path
-    let file_path = dir_path.join("results.txt");
-    println!("File path: {:?}", file_path);
+    println!("{:<10} {:<10}", rust_time, python_time);
 
-    let file = std::fs::File::open(file_path).expect("Failed to open results file");
-    let reader = std::io::BufReader::new(file);
+    let max_time = rust_time.max(python_time);
+    let rust_bar = (rust_time / max_time * 50.0).round() as usize;
+    let python_bar = (python_time / max_time * 50.0).round() as usize;
 
-    let mut results = Vec::new();
-    for line in reader.lines() {
-        if let Ok(line) = line {
-            let parts: Vec<&str> = line.split(", ").collect();
-            if parts.len() == 3 {
-                let timestamp: u64 = parts[0].parse().unwrap();
-                let rust_time: f64 = parts[1].split(" ").nth(1).unwrap().parse().unwrap();
-                let python_time: f64 = parts[2].split(" ").nth(1).unwrap().parse().unwrap();
-                results.push((timestamp, rust_time, python_time));
-            }
-        }
-    }
-    println!("Timestamp          Rust (ms)   Python (ms)");
-    println!("-----------------------------------------");
-
-    for (timestamp, rust_time, python_time) in results {
-        println!("{:<18} {:<10} {:<10}", timestamp, rust_time, python_time);
-
-        let max_time = rust_time.max(python_time);
-        let rust_bar = (rust_time / max_time * 50.0).round() as usize;
-        let python_bar = (python_time / max_time * 50.0).round() as usize;
-
-        println!("Rust:   [{}]", "*".repeat(rust_bar));
-        println!("Python: [{}]", "*".repeat(python_bar));
-        println!("");
-    }
+    println!("Rust:   [{}]", "*".repeat(rust_bar));
+    println!("Python: [{}]", "*".repeat(python_bar));
+    println!("");
 }
