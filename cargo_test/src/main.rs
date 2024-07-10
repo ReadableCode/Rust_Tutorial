@@ -63,4 +63,6 @@ fn main() {
     }
 
     sum_squares_perf_test::compare_performance();
+    sum_squares_perf_test::display_graph();
+
 }
