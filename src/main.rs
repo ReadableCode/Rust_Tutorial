@@ -5,7 +5,7 @@ use csv::Writer;
 use hostname::get;
 
 mod constants;
-mod sum_squares_perf_test;
+mod sum_squares_perf;
 mod introductions;
 
 fn write_to_log_file(content: &str) {
@@ -29,7 +29,7 @@ fn write_to_log_file(content: &str) {
         .expect("Failed to write to results file");
 }
 
-fn write_to_csv_file(timestamp: u64, hostname: String, rust_time: f64, python_time: f64) {
+fn write_to_csv_file(timestamp: u64, hostname: String, rust_time: f64, python_time: f64, go_time: f64) {
     // Get the data directory from constants
     let dir_path = constants::data_dir();
 
@@ -52,6 +52,7 @@ fn write_to_csv_file(timestamp: u64, hostname: String, rust_time: f64, python_ti
         hostname.clone(),
         format!("{:.2}", rust_time),
         format!("{:.2}", python_time),
+        format!("{:.2}", go_time),
     ])
     .expect("Failed to write to CSV file");
     
@@ -70,7 +71,7 @@ fn main() {
     }
 
     // Performance Tests
-    let (rust_time, python_time) = sum_squares_perf_test::compare_rust_python_performance();
+    let (rust_time, python_time, go_time) = sum_squares_perf::compare_rust_python_go_performance();
 
     // Write results to log file with a timestamp
     let timestamp: u64 = SystemTime::now()
@@ -80,14 +81,14 @@ fn main() {
 
     // Write to log file
     let result_log_entry = format!(
-        "{}, {}, Rust: {:.2} ms, Python: {:.2} ms\n",
-        timestamp, hostname, rust_time, python_time
+        "{}, {}, Rust: {:.2} ms, Python: {:.2} ms, Go: {:.2} ms\n",
+        timestamp, hostname, rust_time, python_time, go_time
     );
     write_to_log_file(&result_log_entry);
     
     // Write to csv file
-    write_to_csv_file(timestamp, hostname, rust_time, python_time);
+    write_to_csv_file(timestamp, hostname, rust_time, python_time, go_time);
 
     // Graph results
-    sum_squares_perf_test::display_graph(rust_time, python_time);
+    sum_squares_perf::display_graph(rust_time, python_time, go_time);
 }
