@@ -61,8 +61,10 @@ pub fn do_introductions(){
         .expect("failed to read line");
     if should_introduce_yourself.trim() == "yes" {
         introduction();
-        print_hello();
         let result = add_numbers(20, 20);
         println!("result is {}", result);
+    }
+    else {
+        print_hello()
     }
 }
