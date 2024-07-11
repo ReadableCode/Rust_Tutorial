@@ -27,8 +27,8 @@
 
 - If using VSCode, install the Rust extension by searching for `rust-analyzer` in the extensions tab.
 
-- Close and reopen the terminal to make sure installation is successful and hen run the folling commands to verify the versions of rustup and rustc:
-  
+- Close and reopen the terminal to make sure installation is successful and then run the folling commands to verify the versions of rustup and rustc:
+
   ```bash
   rustup --version
   rustc --version
