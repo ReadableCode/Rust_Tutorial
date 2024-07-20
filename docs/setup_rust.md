@@ -19,7 +19,14 @@
 
   ```bash
   winget install -e --id Rustlang.Rustup
+  winget install -e --id Microsoft.VisualStudio.2022.BuildTools --source winget --override "--add Microsoft.VisualStudio.Workload.VCTools --includeRecommended --includeOptional"
   ```
+  
+  To finish installaion:
+  - open Visual Studio Installer
+  - press Modify
+  - check Desktop Development with C++
+  - press Modify
   
   - Will need to close and reopen all VSCode windows to make sure the powershell window can access cargo and rustc.
 
